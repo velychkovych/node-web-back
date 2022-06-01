@@ -1,0 +1,72 @@
+POST localhost:3000/addOne
+Content-Type: application/json
+
+{
+  "name": "value"
+}
+###
+POST localhost:3000/signup
+Content-Type: application/json
+
+{
+  "username": "velychkovych",
+  "password": "qwerty"
+}
+
+###
+POST localhost:3000/login
+Content-Type: application/json
+
+{
+  "username": "velychkovych",
+  "password": "qwerty"
+}
+
+###
+POST localhost:3000/test
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZlbHljaGtvdnljaCIsImlhdCI6MTY1NDExMjE4MH0.ZqWi2uxEcFrJdxZm8KILwfkVoJqfd0VYP6biZY2xtRc
+###
+GET localhost:3000/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZlbHljaGtvdnljaCIsImlhdCI6MTY1NDExMjE4MH0.ZqWi2uxEcFrJdxZm8KILwfkVoJqfd0VYP6biZY2xtRc
+###
+PUT localhost:3000/user?username=velychkovych
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZlbHljaGtvdnljaCIsImlhdCI6MTY1NDExMjE4MH0.ZqWi2uxEcFrJdxZm8KILwfkVoJqfd0VYP6biZY2xtRc
+
+{
+  "firstName": "Steve",
+  "lastName": "Jobs"
+}
+
+###
+DELETE localhost:3000/user?username=velychkovych
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZlbHljaGtvdnljaCIsImlhdCI6MTY1NDExMjE4MH0.ZqWi2uxEcFrJdxZm8KILwfkVoJqfd0VYP6biZY2xtRc
+
+
+###
+POST localhost:3000/article
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZlbHljaGtvdnljaCIsImlhdCI6MTY1NDExMjE4MH0.ZqWi2uxEcFrJdxZm8KILwfkVoJqfd0VYP6biZY2xtRc
+
+{
+  "header": "Ligma",
+  "body": "it's so sad that steve jobs died of ligma"
+}
+
+###
+PUT localhost:3000/article
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZlbHljaGtvdnljaCIsImlhdCI6MTY1NDExMjE4MH0.ZqWi2uxEcFrJdxZm8KILwfkVoJqfd0VYP6biZY2xtRc
+
+{
+  "header": "Ligma",
+  "body": "it's so sad that ligma died of Steve jobs"
+}
+
+###
+DELETE localhost:3000/article?header=Ligma
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZlbHljaGtvdnljaCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY1NDExNzI2OH0.d-JZih2-bqOwg7z0icyqatBrDbfhnnd4tHhOFcp9s-g
