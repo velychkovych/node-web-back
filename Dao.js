@@ -1,6 +1,7 @@
 const MongoClient = require('mongodb').MongoClient
-const articlePosted = "posted"
-const articleEdited = "edited"
+const Constants = require('./Constants')
+const articlePosted = Constants.articleType.posted
+const articleEdited = Constants.articleType.edited
 
 class Dao {
 
@@ -12,59 +13,58 @@ class Dao {
 
     connect = () => {
         this.dbConnection = new Promise((resolve, reject) => {
-            const client = new MongoClient('mongodb+srv://root:kyx3cX5HwjDEBHPY@cluster0.cufld.mongodb.net/mydb2?retryWrites=true&w=majority'
+            const client = new MongoClient(Constants.mongo.dbUrl
                 , {useNewUrlParser: true, useUnifiedTopology: true})
             client.connect()
-                .then(() => client.db('mydb2'))
+                .then(() => client.db(Constants.mongo.dbName))
                 .then(db => resolve(db))
                 .catch(reject);
         })
     }
 
+    addUser = record => this.ifConnected(db => db.collection(Constants.mongo.collections.user).insertOne(record))
 
-    addUser = record => this.ifConnected(db => db.collection('user').insertOne(record))
-
-    updateUser = (username, fieldToUpdate) => this.ifConnected(db => db.collection('user').updateOne({username},
+    updateUser = (username, fieldToUpdate) => this.ifConnected(db => db.collection(Constants.mongo.collections.user).updateOne({username},
         {$set: fieldToUpdate}
     ))
 
-    deleteUser = username => this.ifConnected(db => db.collection('user').findOneAndDelete({username}))
+    deleteUser = username => this.ifConnected(db => db.collection(Constants.mongo.collections.user).findOneAndDelete({username}))
 
-    getUserByUsername = username => this.ifConnected(db => db.collection('user').findOne({username: username}))
+    getUserByUsername = username => this.ifConnected(db => db.collection(Constants.mongo.collections.user).findOne({username: username}))
 
-    getAllUsers = () => this.ifConnected(db => db.collection('user').find({}).toArray())
+    getAllUsers = () => this.ifConnected(db => db.collection(Constants.mongo.collections.user).find({}).toArray())
 
-    addArticle = record => this.ifConnected(db => db.collection('article').insertOne(record))
+    addArticle = record => this.ifConnected(db => db.collection(Constants.mongo.collections.article).insertOne(record))
 
-    getAllArticles = () => this.ifConnected(db => db.collection('article').find({}).toArray())
+    getAllArticles = () => this.ifConnected(db => db.collection(Constants.mongo.collections.article).find({}).toArray())
 
-    getArticleByHeader = header => this.ifConnected(db => db.collection('article').findOne({
+    getPostedArticleByHeader = header => this.ifConnected(db => db.collection(Constants.mongo.collections.article).findOne({
         header,
         type: articlePosted
     }))
 
-    deleteByHeaderAndUsername = (header, author) => this.ifConnected(db => db.collection('article').findOneAndDelete({
+    deleteByHeaderAndUsername = (header, author) => this.ifConnected(db => db.collection(Constants.mongo.collections.article).findOneAndDelete({
         header,
         author,
         type: articlePosted
     }))
 
-    getByHeaderAndUsername = (header, author) => this.ifConnected(db => db.collection('article').findOne({
+    getEditedArticleByHeaderAndUsername = (header, author) => this.ifConnected(db => db.collection(Constants.mongo.collections.article).findOne({
         header,
         author,
         type: articleEdited
     }))
 
-    updateArticleType = (header, author, type) => this.ifConnected(db => db.collection('article').updateOne({
+    updateArticleType = (header, author, type) => this.ifConnected(db => db.collection(Constants.mongo.collections.article).updateOne({
             header,
             author
         },
         {$set: {type}}
     ))
 
-    deleteArticleByHeader = header => this.ifConnected(db => db.collection('article').findOneAndDelete({header}))
+    deleteArticleByHeader = header => this.ifConnected(db => db.collection(Constants.mongo.collections.article).findOneAndDelete({header}))
 
-    ifConnected = dbAction => this.dbConnection ? this.dbConnection.then(dbAction) : Promise.reject('not connected')
+    ifConnected = dbAction => this.dbConnection ? this.dbConnection.then(dbAction) : Promise.reject(Constants.mongo.notConnectedMsg)
 
 }
 

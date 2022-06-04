@@ -14,24 +14,21 @@ Content-Type: application/json
 }
 
 ###
-POST localhost:3000/login
+POST localhost:8000/api/v1/login
 Content-Type: application/json
 
 {
-  "username": "velychkovych",
+  "username": "velychkovyddch",
   "password": "qwerty"
 }
 
+
 ###
-POST localhost:3000/test
+GET localhost:8080/users
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZlbHljaGtvdnljaCIsImlhdCI6MTY1NDExMjE4MH0.ZqWi2uxEcFrJdxZm8KILwfkVoJqfd0VYP6biZY2xtRc
 ###
-GET localhost:3000/users
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZlbHljaGtvdnljaCIsImlhdCI6MTY1NDExMjE4MH0.ZqWi2uxEcFrJdxZm8KILwfkVoJqfd0VYP6biZY2xtRc
-###
-PUT localhost:3000/user?username=velychkovych
+PUT localhost:8000/user?userame=velychkovych
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZlbHljaGtvdnljaCIsImlhdCI6MTY1NDExMjE4MH0.ZqWi2uxEcFrJdxZm8KILwfkVoJqfd0VYP6biZY2xtRc
 
@@ -41,7 +38,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZlb
 }
 
 ###
-DELETE localhost:3000/user?username=velychkovych
+DELETE http://localhost:3000/user?username=velychkovych
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZlbHljaGtvdnljaCIsImlhdCI6MTY1NDExMjE4MH0.ZqWi2uxEcFrJdxZm8KILwfkVoJqfd0VYP6biZY2xtRc
+
+###
+DELETE localhost:8080/user?username=qwerty
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZlbHljaGtvdnljaCIsImlhdCI6MTY1NDExMjE4MH0.ZqWi2uxEcFrJdxZm8KILwfkVoJqfd0VYP6biZY2xtRc
 
