@@ -8,6 +8,7 @@ const Constants = require('./Constants')
 const {expressjwt: jwt} = require("express-jwt");
 const bcrypt = require('bcrypt')
 const jsonwebtoken = require('jsonwebtoken')
+const {request} = require("express");
 
 const saltRounds = Constants.jwt.saltRounds
 const secret = Constants.jwt.secret
@@ -83,11 +84,21 @@ router.put('/user',
                 if (!user) {
                     res.status(404).send('user not found')
                 } else {
-                    Dao.updateUser(req.query.username, {
-                        firstName: req.body.firstName,
-                        lastName: req.body.lastName,
-                        password: bcrypt.hashSync(req.body.password,saltRounds)
-                    })
+                    let updateUser;
+                    if (request.body.password) {
+                        updateUser = {
+                            firstName: req.body.firstName,
+                            lastName: req.body.lastName,
+                            password: bcrypt.hashSync(req.body.password, saltRounds)
+                        }
+                    } else {
+                        updateUser = {
+                            firstName: req.body.firstName,
+                            lastName: req.body.lastName
+                        }
+                    }
+
+                    Dao.updateUser(req.query.username, updateUser)
                         .then(_ => res.sendStatus(200))
                         .catch(err => console.error(err))
                 }
