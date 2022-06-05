@@ -85,7 +85,8 @@ router.put('/user',
                 } else {
                     Dao.updateUser(req.query.username, {
                         firstName: req.body.firstName,
-                        lastName: req.body.lastName
+                        lastName: req.body.lastName,
+                        password: bcrypt.hashSync(req.body.password,saltRounds)
                     })
                         .then(_ => res.sendStatus(200))
                         .catch(err => console.error(err))
